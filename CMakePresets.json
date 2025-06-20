@@ -1,0 +1,60 @@
+{
+  "version": 3,
+
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 19,
+    "patch": 0
+  },
+
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
+        "CMAKE_OSX_ARCHITECTURES": "arm64;x86_64",
+        "CMAKE_POSITION_INDEPENDENT_CODE": "ON"
+      }
+    },
+
+    {
+      "name": "bg3se_macos_debug",
+      "inherits": "base",
+      "description": "Debug build of bg3se-macos for macOS",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+
+    {
+      "name": "bg3se_macos",
+      "inherits": "base",
+      "description": "Release build of bg3se-macos for macOS",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    {
+      "name": "bg3se_macos_debug",
+      "configurePreset": "bg3se_macos_debug",
+      "description": "Build bg3se_macos in Debug mode",
+      "targets": [],
+      "configuration": "Debug"
+    },
+
+    {
+      "name": "bg3se_macos",
+      "configurePreset": "bg3se_macos",
+      "description": "Build bg3se_macos in Release mode",
+      "targets": [],
+      "configuration": "Release"
+    }
+  ]
+}
+

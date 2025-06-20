@@ -29,5 +29,5 @@ compile_commands.json
 Debugging/
 
 # External packages
-External/
+External/*
 
