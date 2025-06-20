@@ -1,60 +1,62 @@
 {
-  "version": 3,
-
-  "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 19,
-    "patch": 0
-  },
-
-  "configurePresets": [
-    {
-      "name": "base",
-      "hidden": true,
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
-        "CMAKE_OSX_ARCHITECTURES": "arm64;x86_64",
-        "CMAKE_POSITION_INDEPENDENT_CODE": "ON"
-      }
-    },
-
-    {
-      "name": "bg3se_macos_debug",
-      "inherits": "base",
-      "description": "Debug build of bg3se-macos for macOS",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
-    },
-
-    {
-      "name": "bg3se_macos",
-      "inherits": "base",
-      "description": "Release build of bg3se-macos for macOS",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      }
-    }
-  ],
-
-  "buildPresets": [
-    {
-      "name": "bg3se_macos_debug",
-      "configurePreset": "bg3se_macos_debug",
-      "description": "Build bg3se_macos in Debug mode",
-      "targets": [],
-      "configuration": "Debug"
-    },
-
-    {
-      "name": "bg3se_macos",
-      "configurePreset": "bg3se_macos",
-      "description": "Build bg3se_macos in Release mode",
-      "targets": [],
-      "configuration": "Release"
-    }
-  ]
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "bg3se_macos_debug",
+            "displayName": "BG3SE macOS Debug",
+            "description": "Debug build for bg3se macOS port",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_OSX_ARCHITECTURES": "arm64",
+                "CMAKE_CXX_STANDARD": "17",
+                "CMAKE_POSITION_INDEPENDENT_CODE": "ON",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            },
+            "environment": {
+                "CC": "clang",
+                "CXX": "clang++"
+            }
+        },
+        {
+            "name": "bg3se_macos_release",
+            "displayName": "BG3SE macOS Release",
+            "description": "Release build for bg3se macOS port",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_OSX_ARCHITECTURES": "arm64",
+                "CMAKE_CXX_STANDARD": "17",
+                "CMAKE_POSITION_INDEPENDENT_CODE": "ON",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            },
+            "environment": {
+                "CC": "clang",
+                "CXX": "clang++"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "bg3se_macos_debug",
+            "displayName": "Build BG3SE macOS Debug",
+            "configurePreset": "bg3se_macos_debug",
+            "targets": ["bg3se_macos", "targeted_scanner", "enhanced_scanner"]
+        },
+        {
+            "name": "bg3se_macos_release", 
+            "displayName": "Build BG3SE macOS Release",
+            "configurePreset": "bg3se_macos_release",
+            "targets": ["bg3se_macos", "targeted_scanner", "enhanced_scanner"]
+        },
+        {
+            "name": "scanners_only",
+            "displayName": "Build Symbol Scanners Only",
+            "configurePreset": "bg3se_macos_debug",
+            "targets": ["targeted_scanner", "enhanced_scanner"]
+        }
+    ],
+    "testPresets": []
 }
-

@@ -31,3 +31,5 @@ Debugging/
 # External packages
 External/*
 
+# Game binary
+bg3_arm64
